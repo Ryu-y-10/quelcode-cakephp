@@ -33,6 +33,6 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=root
     ports:
-      - 10082:80
+      - 10081:80
     volumes:
       - ./phpmyadmin/sessions:/sessions
