@@ -7,7 +7,8 @@
 		echo '<p><strong>USER: ' . $authuser['username'] . '</strong></p>';
 		echo $this->Form->control('name');
 		echo $this->Form->control('detail');
-		echo $this->Form->file('image');
+		echo $this->Form->file('image_path');
+		echo $this->Form->error('image_path');
 		echo $this->Form->hidden('finished', ['value' => 0]);
 		echo $this->Form->control('endtime');
 	?>
