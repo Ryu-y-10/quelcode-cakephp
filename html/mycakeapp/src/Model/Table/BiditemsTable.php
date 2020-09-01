@@ -80,7 +80,7 @@ class BiditemsTable extends Table
         $validator
             ->notEmptyFile('image_path')
             ->add('image_path','extension',[ 
-                'rule' => ['extension',['jpeg','jpg','png']],
+                'rule' => ['extension',['jpeg','jpg','png','gif']],
                 'message' => 'ファイルは、gif,jpeg,jpg,gifのいずれかを指定してください',
                 
             ]);
