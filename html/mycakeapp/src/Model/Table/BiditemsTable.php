@@ -74,15 +74,18 @@ class BiditemsTable extends Table
             ->notEmptyString('name');
 
         $validator
+            ->scalar('detail')
             ->maxLength('detail', 1000)
             ->requirePresence('detail', 'create')
             ->notEmptyString('detail');
 
         $validator
+            ->scalar('image_path')
+            ->maxLength('image_path',100)
             ->notEmptyFile('image_path')
             ->add('image_path', 'extension', [
                 'rule' => ['extension', ['jpeg', 'jpg', 'png', 'gif']],
-                'message' => 'ファイルは、gif,jpeg,jpg,gifのいずれかを指定してください',
+                'message' => 'ファイルは、jpeg,jpg,png,gifのいずれかを指定してください',
 
             ]);
 
