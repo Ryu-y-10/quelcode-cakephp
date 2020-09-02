@@ -94,25 +94,42 @@ class AuctionController extends AuctionBaseController
 			//ファイル情報を変数に入れておく
 			$fileinfo = $this->request->getData('image_path');
 
-			// $biditemにフォームの送信内容を反映
-			$biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
-			//一時的に'image_path'に仮の値を入れておく
-			$biditem['image_path'] = "temporaryimagepath";
-			if ($this->Biditems->save($biditem)) {
-				//登録した商品IDを取得
-				$biditem_id = $biditem->id;
-				//imageパスを作成
-				$imagepath = '../webroot/img/auction/' . $biditem_id . '.' . pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
-				move_uploaded_file($fileinfo['tmp_name'], $imagepath);
-				//再度'image_path'カラムに値を商品ID＋拡張子で保存
-				$biditem['image_path'] = $biditem_id . '.' . pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
-				$this->Biditems->save($biditem);
-				// 成功時のメッセージ
-				$this->Flash->success(__('保存しました。'));
-				return $this->redirect(['action' => 'index']);
+
+			if (!empty($fileinfo)) {
+				$arr = ['png', 'jpg', 'jpeg', 'gif'];
+				$fileinfo['name'] = strtolower($fileinfo['name']);
+				$fileinfo['name'] = pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
+				//dd($fileinfo['name']);
+				if (in_array($fileinfo['name'], $arr)) {
+
+
+
+					// $biditemにフォームの送信内容を反映
+					$biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
+					//一時的に'image_path'に仮の値を入れておく
+					$biditem['image_path'] = "temporaryimagepath";
+					if ($this->Biditems->save($biditem)) {
+						//登録した商品IDを取得
+						$biditem_id = $biditem->id;
+						//imageパスを作成
+						$imagepath = '../webroot/img/auction/' . $biditem_id . '.' . $fileinfo['name'];
+						move_uploaded_file($fileinfo['tmp_name'], $imagepath);
+						//再度'image_path'カラムに値を商品ID＋拡張子で保存
+						$biditem['image_path'] = $biditem_id . '.' . $fileinfo['name'];
+						$this->Biditems->save($biditem);
+						// 成功時のメッセージ
+						$this->Flash->success(__('保存しました。'));
+						return $this->redirect(['action' => 'index']);
+					}
+					
+					// 失敗時のメッセージ
+					$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+				}
+				$this->Flssh->error(__("画像の拡張子は'png','gif'を指定してください"));
+
 			}
-			// 失敗時のメッセージ
-			$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+			$this->Flssh->error(__("画像のアップロード失敗"));
+
 		}
 		// 値を保管
 		$this->set(compact('biditem'));
