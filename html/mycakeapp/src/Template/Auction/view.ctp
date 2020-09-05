@@ -1,7 +1,7 @@
 <h2>「<?= $biditem->name ?>」の情報</h2>
 <?php
 //サーバーの時刻取得($bidEndTimeと書式を揃える)
-$now = date('Y/m/d h:i:s');
+$now = date('Y/m/d H:i:s');
 //オークション終了時刻取得
 $bidEndTime = $biditem->endtime->i18nFormat('yyyy/MM/dd HH:mm:ss');
 ?>
