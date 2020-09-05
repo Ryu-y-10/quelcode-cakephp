@@ -81,7 +81,8 @@ class BiditemsTable extends Table
 
         $validator
             ->scalar('image_path')
-            ->maxLength('image_path',100)
+            ->maxLength('image_path', 100)
+            ->requirePresence('image_path', 'create')
             ->notEmptyFile('image_path')
             ->add('image_path', 'extension', [
                 'rule' => ['extension', ['jpeg', 'jpg', 'png', 'gif']],
