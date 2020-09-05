@@ -125,10 +125,10 @@ class AuctionController extends AuctionBaseController
 					// 失敗時のメッセージ
 					$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
 				}
-				$this->Flssh->error(__("画像の拡張子は'png','gif'を指定してください"));
+				$this->Flash->error(__("画像の拡張子は'png','gif'を指定してください"));
 
 			}
-			$this->Flssh->error(__("画像のアップロード失敗"));
+			$this->Flash->error(__("画像のアップロード失敗"));
 
 		}
 		// 値を保管

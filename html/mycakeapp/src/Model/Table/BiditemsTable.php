@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -74,15 +75,15 @@ class BiditemsTable extends Table
 
         $validator
             ->scalar('detail')
-            ->requirePresence('detail','create')
-            ->notEmptyString('detail');   
+            ->requirePresence('detail', 'create')
+            ->notEmptyString('detail');
 
         $validator
             ->notEmptyFile('image_path')
-            ->add('image_path','extension',[ 
-                'rule' => ['extension',['jpeg','jpg','png','gif']],
-                'message' => 'ファイルは、gif,jpeg,jpg,gifのいずれかを指定してください',
-                
+            ->add('image_path', 'extension', [
+                'rule' => ['extension', ['jpeg', 'jpg', 'png', 'gif']],
+                'message' => 'ファイルは、gif,jpeg,jpg,gifのいずれかを指定してください'
+
             ]);
 
         $validator
