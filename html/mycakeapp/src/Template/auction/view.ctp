@@ -1,7 +1,7 @@
 <h2>「<?= $biditem->name ?> 」の情報</h2>
 
 <?php
-$i = date('Y/m/d h:i:s');
+$i = date('Y/m/d H:i:s');
 echo $i.'<br>';
 $j = $biditem->endtime->i18nFormat('yyyy/MM/dd HH:mm:ss');
 echo $j;
