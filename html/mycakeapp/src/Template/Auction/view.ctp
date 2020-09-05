@@ -9,6 +9,7 @@ $bidEndTime = $biditem->endtime->i18nFormat('yyyy/MM/dd HH:mm:ss');
 	var now = "<?= $now ?>";
 	var bidEndTime = "<?= $bidEndTime ?>";
 </script>
+<?= $this->Html->script('count') ?>
 <table class="vertical-table">
 	<tr>
 		<th class="small" scope="row">出品者</th>
