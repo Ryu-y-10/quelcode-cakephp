@@ -1,4 +1,8 @@
 <h2>「<?= $biditem->name ?>」の情報</h2>
+<?php
+//オークション終了時刻取得
+$bidEndTime = $biditem->endtime->i18nFormat('yyyy/MM/dd HH:mm:ss');
+?>
 <table class="vertical-table">
 	<tr>
 		<th class="small" scope="row">出品者</th>
