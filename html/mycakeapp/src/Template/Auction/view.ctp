@@ -5,6 +5,10 @@ $now = date('Y/m/d h:i:s');
 //オークション終了時刻取得
 $bidEndTime = $biditem->endtime->i18nFormat('yyyy/MM/dd HH:mm:ss');
 ?>
+<script>
+	var now = "<?= $now ?>";
+	var bidEndTime = "<?= $bidEndTime ?>";
+</script>
 <table class="vertical-table">
 	<tr>
 		<th class="small" scope="row">出品者</th>
