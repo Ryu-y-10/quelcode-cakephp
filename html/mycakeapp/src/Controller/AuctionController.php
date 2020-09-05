@@ -95,12 +95,12 @@ class AuctionController extends AuctionBaseController
 			$fileinfo = $this->request->getData('image_path');
 
 
-			if (!empty($fileinfo)) {
+			/*if (!empty($fileinfo)) {
 				$arr = ['png', 'jpg', 'jpeg', 'gif'];
 				$fileinfo['name'] = strtolower($fileinfo['name']);
 				$fileinfo['name'] = pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
 				//dd($fileinfo['name']);
-				if (in_array($fileinfo['name'], $arr)) {
+				if (in_array($fileinfo['name'], $arr)) {*/
 
 
 
@@ -124,11 +124,11 @@ class AuctionController extends AuctionBaseController
 					
 					// 失敗時のメッセージ
 					$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
-				}
-				$this->Flash->error(__("画像の拡張子は'png','gif'を指定してください"));
+				//}
+				//$this->Flash->error(__("画像の拡張子は'png','gif'を指定してください"));
 
-			}
-			$this->Flash->error(__("画像のアップロード失敗"));
+			//}
+			//$this->Flash->error(__("画像のアップロード失敗"));
 
 		}
 		// 値を保管
