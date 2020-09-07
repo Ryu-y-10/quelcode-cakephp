@@ -90,34 +90,36 @@ class AuctionController extends AuctionBaseController
 		$biditem = $this->Biditems->newEntity();
 		// POST送信時の処理
 		if ($this->request->is('post')) {
-			// $biditemにフォームの送信内容を反映
 			//ファイル情報を変数に入れておく
 			$fileinfo = $this->request->getData('image_path');
-
 			// $biditemにフォームの送信内容を反映
 			$biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
-			//一時的に'image_path'に仮の値を入れておく
-			$biditem['image_path'] = "temporaryimagepath";
-			if ($this->Biditems->save($biditem)) {
-				//登録した商品IDを取得
-				$biditem_id = $biditem->id;
-				//imageパスを作成
-				$imagepath = '../webroot/img/auction/' . $biditem_id . '.' . pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
-				move_uploaded_file($fileinfo['tmp_name'], $imagepath);
-				//再度'image_path'カラムに値を商品ID＋拡張子で保存
-				$biditem['image_path'] = $biditem_id . '.' . pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
-				$this->Biditems->save($biditem);
-				// 成功時のメッセージ
-				$this->Flash->success(__('保存しました。'));
-				return $this->redirect(['action' => 'index']);
+			//バリデーションのチェック　エラーがあればエラー内容を表示し再入力画面へ
+			if ($biditem->errors()) {
+				$this->Flash->error(__(''));
+			} else {
+				//一時的に'image_path'に仮の値を入れておく
+				$biditem['image_path'] = "temporaryimagepath";
+				if ($this->Biditems->save($biditem)) {
+					//登録した商品IDを取得
+					$biditem_id = $biditem->id;
+					//imageパスを作成
+					$imagepath = '../webroot/img/auction/' . $biditem_id . '.' . pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
+					move_uploaded_file($fileinfo['tmp_name'], $imagepath);
+					//再度'image_path'カラムに値を商品ID＋拡張子で保存
+					$biditem['image_path'] = $biditem_id . '.' . pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
+					$this->Biditems->save($biditem);
+					// 成功時のメッセージ
+					$this->Flash->success(__('保存しました。'));
+					return $this->redirect(['action' => 'index']);
+				}
+				// 失敗時のメッセージ
+				$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
 			}
-			// 失敗時のメッセージ
-			$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
 		}
 		// 値を保管
 		$this->set(compact('biditem'));
 	}
-
 	// 入札の処理
 	public function bid($biditem_id = null)
 	{
