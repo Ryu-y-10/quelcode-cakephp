@@ -103,11 +103,12 @@ class AuctionController extends AuctionBaseController
 				if ($this->Biditems->save($biditem)) {
 					//登録した商品IDを取得
 					$biditem_id = $biditem->id;
+					$newfilename = $biditem_id . '.' . pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
 					//imageパスを作成
-					$imagepath = '../webroot/img/auction/' . $biditem_id . '.' . pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
+					$imagepath = '../webroot/img/auction/' . $newfilename;
 					move_uploaded_file($fileinfo['tmp_name'], $imagepath);
 					//再度'image_path'カラムに値を商品ID＋拡張子で保存
-					$biditem['image_path'] = $biditem_id . '.' . pathinfo($fileinfo['name'], PATHINFO_EXTENSION);
+					$biditem['image_path'] = $newfilename;
 					$this->Biditems->save($biditem);
 					// 成功時のメッセージ
 					$this->Flash->success(__('保存しました。'));
